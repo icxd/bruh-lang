@@ -1,0 +1,31 @@
+const (
+    MouseButton_Left = 0,
+    MouseButton_Right = 1
+);
+
+object Clickable {
+    construct {
+        _fn = null;
+        _button = 0;
+    }
+
+    onClick(fn) { _fn = fn; }
+    onClick(button, fn) {
+        _fn = fn;
+        _button = button;
+    }
+
+    fireEvent(button) {
+        if _fn and button == _button {
+            _fn.call(button);
+        }
+    }
+}
+
+const ContextMenu = construct Clickable;
+ContextMenu.onClick {|btn|
+    println("clicked button", btn);
+};
+
+ContextMenu.fireEvent(MouseButton_Left);
+ContextMenu.fireEvent(MouseButton_Right);
